@@ -1,0 +1,135 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+}
+
+h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.product-container img {
+    max-height: 500px;
+}
+
+.product {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    text-align: left;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product h3 {
+    font-size: 1.1em;
+    margin: 10px 0 5px 0;
+}
+
+.product p.price {
+    font-size: 1.1em;
+    color: #b12704;
+    font-weight: bold;
+    margin: 5px 0 20px 0;
+}
+
+.see-more {
+    display: block;
+    background-color: #ffa41c;
+    font-size: 16px;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+.see-more:hover {
+    background-color: #ff8c00;
+}
+
+.add-to-cart {
+    display: block;
+    background-color: #28a745;
+    font-size: 16px;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.add-to-cart:hover {
+    background-color: #218838;
+}
+
+
+.cart {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cart:hover {
+    background-color: #e2e6ea;
+}
+
+.cart-icon {
+    font-size: 24px;
+}
+
+.item-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #ff4d4d;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 14px;
+}

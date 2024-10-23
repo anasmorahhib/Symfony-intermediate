@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.title }} - Product Details{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/products.css') }}">
+{% endblock %}
+
+{% block body %}
+<div>
+<a href="{{ path('products')}}" class="see-more">Revenir aux produits</a>
+
+</div>
+<div class="product-container">
+    <div class="product-image">
+        <img src="{{ asset('images/products/' ~ product.image) }}" alt="{{ product.title }}" />
+    </div>
+    <div class="product-details">
+        <h1 class="product-title">{{ product.title }}</h1>
+        <p class="product-price">{{ product.price }}</p>
+        <p class="product-description">{{ product.description }}</p>
+        <a href="" class="see-more">Ajouter au pannier</a>
+    </div>
+</div>
+{% endblock %}

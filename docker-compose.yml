@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+        context: .
+        dockerfile: dockerfile
+    container_name: symfony_php_intermediate
+    volumes:
+      - ./src:/var/www/html:cached
+    networks:
+      - symfony_net
+
+  web:
+    image: nginx:alpine
+    container_name: symfony_nginx_intermediate
+    volumes:
+      - ./src:/var/www/html:cached
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    networks:
+      - symfony_net
+
+  node:
+    image: node:18
+    container_name: symfony_node_intermediate
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - symfony_net
+    command: ["tail", "-f", "/dev/null"]  # This keeps the container running
+        
+volumes:
+  db_data:
+
+networks:
+  symfony_net:

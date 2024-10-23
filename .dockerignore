@@ -1,0 +1,19 @@
+# Ignore node_modules and vendor directories
+node_modules/
+vendor/
+
+# Ignore version control files
+.git/
+.gitignore
+
+
+# Ignore IDE and editor files
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Ignore Docker-related files
+dockerfile
+docker-compose.yml
+.dockerignore
