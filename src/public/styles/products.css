@@ -66,6 +66,10 @@ h1 {
     margin: 5px 0 20px 0;
 }
 
+.product p.description {
+    color: #333;
+}
+
 .see-more {
     display: block;
     background-color: #ffa41c;
