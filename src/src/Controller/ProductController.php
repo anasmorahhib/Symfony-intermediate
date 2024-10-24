@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use Knp\Bundle\TimeBundle\DateTimeFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,10 +46,10 @@ class ProductController extends AbstractController
                 'created_at' => new \DateTime('2023-10-10')
             ],
         ];
-        
+
     }
     // Routes config file
-    public function products()
+    public function products(DateTimeFormatter $dateTimeFormatter)
     {
         return $this->render(
             'product/list.html.twig',

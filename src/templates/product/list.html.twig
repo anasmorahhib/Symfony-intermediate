@@ -26,7 +26,7 @@
                     <div class="avatar">U</div>
                     <div class="info">
                         <h3>Yassin AZ...</h3>
-                        <p>{{ product.created_at|date('d/m/Y') }}</p>
+                        <p>{{ product.created_at | ago}}</p>
                      </div>
                 </div>
                 <img src="{{ asset('images/products/' ~ product.image) }}" alt="{{ product.title }}" />
