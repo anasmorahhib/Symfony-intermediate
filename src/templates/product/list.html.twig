@@ -1,7 +1,7 @@
 {# templates/products/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Product List{% endblock %}
+{% block title %}Marketplace{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -11,7 +11,7 @@
 {% block body %}
 <div {{ stimulus_controller('cart') }}/>
     <div class="header">
-        <h1>Products List</h1>
+        <h1>Marketplace</h1>
             {# Cart #}
             <div class="cart">
                 <span class="cart-icon">🛒</span>

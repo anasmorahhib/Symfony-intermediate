@@ -25,7 +25,7 @@ class ProductController extends AbstractController
                 return $response->toArray();
             }
         );
-
+        dump($cache);
         return $this->render(
             'product/list.html.twig',
             ['products' => $products]
