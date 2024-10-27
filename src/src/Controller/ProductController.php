@@ -1,6 +1,6 @@
 <?php
 namespace App\Controller;
-use Knp\Bundle\TimeBundle\DateTimeFormatter;
+use App\Service\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,42 +12,22 @@ class ProductController extends AbstractController
 {
 
     // Routes config file
-    public function products(HttpClientInterface $httpClient, CacheInterface $cache)
+    public function products(ProductRepository $productRepository)
     {
-        $products = $cache->get(
-            'products_data',
-            function ($productCache) use ($httpClient) {
-                $productCache->expiresAfter(60);
-                $response = $httpClient->request(
-                    'GET',
-                    'https://raw.githubusercontent.com/anasmorahhib/formation_symfony6/refs/heads/main/0.data/products.json'
-                );
-                return $response->toArray();
-            }
-        );
-        dump($cache);
+        $products = $productRepository->findAll();
         return $this->render(
             'product/list.html.twig',
             ['products' => $products]
         ); // render return a Response
     }
 
-    public function product($id, Environment $twig, HttpClientInterface $httpClient, CacheInterface $cache)
+    public function product(int $id, ProductRepository $productRepository, Environment $twig)
     {
-        $products = $cache->get(
-            'products_data',
-            function ($productCache) use ($httpClient) {
-                $productCache->expiresAfter(60);
-                $response = $httpClient->request(
-                    'GET',
-                    'https://raw.githubusercontent.com/anasmorahhib/formation_symfony6/refs/heads/main/0.data/products.json'
-                );
-                return $response->toArray();
-            }
-        );
+        $product = $productRepository->findById($id);
+
         $html = $twig->render(
             'product/single.html.twig',
-            ['product' => $products[$id]]
+            ['product' => $product]
         );
 
         return new Response($html);
