@@ -9,11 +9,14 @@ class ProductRepository
 {
     private HttpClientInterface $httpClient;
     private CacheInterface $cache;
+    private bool $isDebug;
 
-    public function __construct(HttpClientInterface $httpClient, CacheInterface $cache)
+    public function __construct(HttpClientInterface $httpClient, CacheInterface $cache, bool $isDebug)
     {
         $this->httpClient = $httpClient;
         $this->cache = $cache;
+        $this->isDebug = $isDebug;
+
     }
 
     public function findAll()
@@ -21,7 +24,7 @@ class ProductRepository
         return $this->cache->get(
             'products_data',
             function ($productCache) {
-                $productCache->expiresAfter(60);
+                $productCache->expiresAfter($this->isDebug ? 60 : 1080);
                 $response = $this->httpClient->request(
                     'GET',
                     'https://raw.githubusercontent.com/anasmorahhib/formation_symfony6/refs/heads/main/0.data/products.json'
