@@ -26,17 +26,13 @@ class ProductRepository
 
     public function findAll()
     {
-        $output = new BufferedOutput();
-        $this->twigDebugCommand->run(new ArrayInput([]), $output);
-        dump($output);
-
         return $this->cache->get(
             'products_data',
             function ($productCache) {
                 $productCache->expiresAfter($this->isDebug ? 60 : 1080);
                 $response = $this->httpClient->request(
                     'GET',
-                    '/anasmorahhib/formation_symfony6/refs/heads/main/0.data/products.json'
+                    '/anasmorahhib/data/refs/heads/main/products.json'
                 );
                 return $response->toArray();
             }
