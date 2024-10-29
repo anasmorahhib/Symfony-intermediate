@@ -12,33 +12,30 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:say-my-name',
-    description: 'Add a short description for your command',
+    description: 'A command that knows who it is... but not much more.',
 )]
 class SayMyNameCommand extends Command
 {
     protected function configure(): void
     {
         $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->addArgument('name', InputArgument::OPTIONAL, 'Argument description')
+            ->addOption('to-upper', null, InputOption::VALUE_NONE, 'Option description')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        $name = $input->getArgument('name') ?: 'Heisenberg'; // Default to Heisenberg
+        $shouldYell = $input->getOption('to-upper');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+        $message = sprintf('My name is %s.', $name);
+        if ($shouldYell) {
+            $message = strtoupper($message); // Convert to uppercase if --yell is provided
         }
 
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
-
+        $io->success($message);
         return Command::SUCCESS;
     }
 }
