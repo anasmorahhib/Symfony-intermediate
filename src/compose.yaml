@@ -1,4 +1,5 @@
 version: '3.8'
+name: formation_symfony_6
 services:
   php:
     build:
