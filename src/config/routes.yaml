@@ -6,16 +6,3 @@ kernel:
     resource: ../src/Kernel.php
     type: annotation
 
-products:
-    path: /products
-    controller: App\Controller\ProductController::products
-
-newProduct:
-    path: /product/new
-    controller: App\Controller\ProductController::new
-    methods: [GET, POST]  # Spécifie les méthodes HTTP autorisées
-
-product:
-    path: /product/{id}
-    controller: App\Controller\ProductController::product
-    methods: [GET]

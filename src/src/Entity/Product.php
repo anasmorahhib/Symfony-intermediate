@@ -113,4 +113,18 @@ class Product
 
         return $this;
     }
+
+    public function getPriceString(): string
+    {
+        return sprintf('$%d', $this->price);
+    }
+
+    public function getImageUrl(int $width): string
+    {
+        return sprintf(
+            'https://picsum.photos/id/%d/%d',
+            ($this->getId() + 50) % 1000,
+            $width
+        );
+    }
 }
