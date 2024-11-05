@@ -21,7 +21,23 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-//    /**
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
+    public function findAllOrderedByPrice(string $city = null): array
+    {
+        $queryBuilder = $this->createQueryBuilder('product')
+            ->orderBy('product.price', 'ASC');
+
+        if ($city) {
+            $queryBuilder->andWhere('product.city = :city')
+                ->setParameter('city', $city);
+        }
+
+        return $queryBuilder->setMaxResults(10)->getQuery()->getResult();
+    }
+
+    //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +52,7 @@ class ProductRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Product
+    //    public function findOneBySomeField($value): ?Product
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

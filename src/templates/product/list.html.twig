@@ -26,7 +26,7 @@
                     <div class="avatar">U</div>
                     <div class="info">
                         <h3>Yassin AZ...</h3>
-                        <p>{{ product.getAddedDate() | ago}}</p>
+                        <p>{{ product.getAddedDate() | ago}} à {{ product.city}}</p>
                      </div>
                 </div>
                 <img src="{{ product.getImageUrl(250) }}" alt="{{ product.title }}" />
@@ -38,7 +38,7 @@
                     {{stimulus_action('cart', 'addToCart')}}>
                     Ajouter au panier
                 </button>
-                <a  href="{{ path('product', {'id': product.id}) }}" class="see-more">Voir plus</a>
+                <a  href="{{ path('product_show', {'id': product.id}) }}" class="see-more">Voir plus</a>
             </div>
         {% endfor %}
     </div>

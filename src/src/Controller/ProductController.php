@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 use App\Entity\Product;
-use App\Service\ProductRepository as ProductService;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +16,8 @@ class ProductController extends AbstractController
         $product = new Product();
         $product->setTitle('Gadget Super Cool');
         $product->setDescription('Un gadget incroyable, indispensable dans votre quotidien !');
-        $product->setCity('Casablanca');
+        $cities = ['Casablanca', 'Rabat', 'El Jadida'];
+        $product->setCity($cities[array_rand($cities)]);
         $product->setPrice(rand(10, 100));
         $product->setQuantity(rand(1, 50));
 
@@ -25,35 +25,31 @@ class ProductController extends AbstractController
         $entityManager->flush();
 
         return new Response(sprintf(
-            'Le produit %d, "%s", est disponible à %d € avec %d en stock.',
+            'Le produit %d", disponible à %s.',
             $product->getId(),
-            $product->getTitle(),
-            $product->getPrice(),
-            $product->getQuantity()
+            $product->getCity()
         ));
     }
 
-    #[Route(path: '/product/list', name: 'products')]
-    public function products(ProductRepository $productRepository)
+    #[Route(path: '/product/list/{city?}', name: 'products')]
+    public function products(ProductRepository $productRepository, string $city = null)
     {
-        $products = $productRepository->findBy([], orderBy: ['price' => 'DESC']);
+        $products = $productRepository->findAllOrderedByPrice($city);
         return $this->render(
             'product/list.html.twig',
             ['products' => $products]
         ); // render return a Response
     }
 
-    #[Route('/product/{id<\d+>}', name: 'product')]
-    public function product(int $id, ProductService $ProductService, Environment $twig)
+    #[Route('/product/{id<\d+>}', name: 'product_show')]
+    public function show(int $id, ProductRepository $productRepository)
     {
-        $product = $ProductService->findById($id);
+        $product = $productRepository->find($id);
 
-        $html = $twig->render(
+        return $this->render(
             'product/single.html.twig',
             ['product' => $product]
         );
-
-        return new Response($html);
     }
 
 
