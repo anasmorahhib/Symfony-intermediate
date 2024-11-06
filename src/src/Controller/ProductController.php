@@ -42,10 +42,8 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{id<\d+>}', name: 'product_show')]
-    public function show(int $id, ProductRepository $productRepository)
+    public function show(Product $product)
     {
-        $product = $productRepository->find($id);
-
         return $this->render(
             'product/single.html.twig',
             ['product' => $product]

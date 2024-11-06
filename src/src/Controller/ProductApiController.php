@@ -62,6 +62,6 @@ class ProductApiController extends AbstractController
             'Product id=#{id} Added successfully',
             ['id' => $id]
         );
-        return $this->json($this->products[$id]);
+        return $this->json(['success' => true, 'product_id' => $id], 200);
     }
 }
