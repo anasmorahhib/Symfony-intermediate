@@ -4,6 +4,7 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -48,6 +49,18 @@ class ProductController extends AbstractController
             'product/single.html.twig',
             ['product' => $product]
         );
+    }
+
+
+    #[Route('/product/{id<\d+>}/add-to-cart', name: 'add_to_cart', methods: ['POST'])]
+    public function addToCart(Product $product, Request $request): Response
+    {
+        dump($product);
+        $quantity = $request->request->get('quantity', 1);
+        if ($quantity <= $product->getQuantity()) {
+            $product->setQuantity($product->getQuantity() - $quantity);
+        }
+        dd($product);
     }
 
 
