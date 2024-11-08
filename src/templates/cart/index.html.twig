@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+
+<body>
+    <div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    <div>
+        {% for item in cart %}
+        <div>
+            <div>{{ item.quantity }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+{% endblock %}

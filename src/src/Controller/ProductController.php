@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Entity\Cart;
 use App\Entity\Product;
+use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,7 +60,6 @@ class ProductController extends AbstractController
         $quantity = $request->request->get('quantity', 1);
         if ($quantity <= $product->getQuantity()) {
             // Create a new CartItem
-            $cart = $product->getCart();
             $cart = $product->getCart() ?? new Cart();
             $cart->setProduct($product);
             $cart->setQuantity($quantity);
@@ -67,7 +67,18 @@ class ProductController extends AbstractController
             $entityManager->flush();
         }
 
-        dd($cart);
+        $this->addFlash('success', 'Article ajouté avec succès');
+        return $this->redirectToRoute('products');
     }
 
+    #[Route('/cart', name: 'show_cart')]
+    public function showCart(CartRepository $cartRepository)
+    {        
+        $cart = $cartRepository->findAll();
+
+        return $this->render(
+            'cart/index.html.twig',
+            ['cart' => $cart]
+        );
+    }
 }

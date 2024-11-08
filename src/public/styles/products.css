@@ -184,3 +184,17 @@ h1 {
     font-size: 14px;
     color: #888;
 }
+
+.alert {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 30px;
+    margin: 0 30px;
+
+    font-size: 18px;
+}
+
+.alert-success {
+    background: #28a745a1;
+    color: #fff;
+}

@@ -18,6 +18,14 @@
                 <span class="item-count" data-cart-target="cartCount">0</span> 
             </div>
     </div>
+    {# Alert #}
+     <div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
     {# this is a list of Products #}
     <div class="product-container">
         {% for product in products %}
