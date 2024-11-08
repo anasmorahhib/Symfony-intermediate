@@ -2,9 +2,18 @@
 
 {% block title %}Cart{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/products.css') }}">
+{% endblock %}
+
 {% block body %}
 
 <body>
+    
+    <div style="max-width: 900px; margin: auto;">
+    <a href="{{ path('products')}}" class="see-more">Revenir aux produits</a>
+
     <div>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -12,10 +21,16 @@
             </div>
         {% endfor %}
     </div>
-    <div>
+
+        <div style="display: flex;justify-content: space-between;border: 1px solid; margin-top: 26px; padding: 10px; font-weight; background: #000;
+  color: #fff;">
+            <div>Produits</div>
+            <div>articles / prix DH</div>
+        </div>
         {% for item in cart %}
-        <div>
-            <div>{{ item.quantity }}</div>
+        <div style="display: flex;justify-content: space-between;border: 1px solid;padding: 10px;">
+            <div>{{ item.product.title }}</div>
+            <div>{{ item.quantity }} articles / {{ item.quantity * item.product.price }} DH</div>
         </div>
         {% endfor %}
     </div>

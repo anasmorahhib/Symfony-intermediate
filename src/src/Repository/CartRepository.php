@@ -21,7 +21,16 @@ class CartRepository extends ServiceEntityRepository
         parent::__construct($registry, Cart::class);
     }
 
-//    /**
+    public function getTotalQuantity(): int
+    {
+        // Utilise DQL pour sélectionner la somme des quantités
+        return (int) $this->createQueryBuilder('c')
+            ->select('SUM(c.quantity)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */
 //    public function findByExampleField($value): array
@@ -36,7 +45,7 @@ class CartRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Cart
+    //    public function findOneBySomeField($value): ?Cart
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

@@ -14,8 +14,10 @@
         <h1>Marketplace</h1>
             {# Cart #}
             <div class="cart">
-                <span class="cart-icon">🛒</span>
-                <span class="item-count" data-cart-target="cartCount">0</span> 
+                <a href="{{path('show_cart')}}">
+                    <span class="cart-icon">🛒</span>
+                    <span class="item-count" data-cart-target="cartCount">{{totalQuantity}}</span> 
+                </a>
             </div>
     </div>
     {# Alert #}
