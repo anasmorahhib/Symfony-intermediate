@@ -32,6 +32,7 @@
                 <img src="{{ product.getImageUrl(250) }}" alt="{{ product.title }}" />
                 <h3><a href="{{ path('product_show', {'id': product.id}) }}"> {{ product.title }}</a></h3>
                 <p class="price">{{ product.getPriceString }}</p>
+                <p class="quantity">{{product.quantity}} articles restants.</p>
                 <p class="description">{{product.description}}</p>
 
                 <form style="display: flex; justify-content: space-between;" 
@@ -41,7 +42,7 @@
                         Ajouter au panier
                     </button>
                 </form>
-                
+
             </div>
         {% endfor %}
     </div>

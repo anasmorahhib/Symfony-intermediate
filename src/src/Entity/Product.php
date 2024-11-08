@@ -32,6 +32,10 @@ class Product
     #[ORM\Column]
     private int $quantity = 1;
 
+    #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
+    private ?Cart $cart = null;
+
+
     public function __construct()
     {
         $this->added_date = new \DateTimeImmutable();
@@ -127,4 +131,27 @@ class Product
             $width
         );
     }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(?Cart $cart): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($cart === null && $this->cart !== null) {
+            $this->cart->setProduct(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($cart !== null && $cart->getProduct() !== $this) {
+            $cart->setProduct($this);
+        }
+
+        $this->cart = $cart;
+
+        return $this;
+    }
+
 }

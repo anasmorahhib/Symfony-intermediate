@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use App\Entity\Cart;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,15 +54,20 @@ class ProductController extends AbstractController
 
 
     #[Route('/product/{id<\d+>}/add-to-cart', name: 'add_to_cart', methods: ['POST'])]
-    public function addToCart(Product $product, Request $request): Response
+    public function addToCart(Product $product, Request $request, EntityManagerInterface $entityManager): Response
     {
-        dump($product);
         $quantity = $request->request->get('quantity', 1);
         if ($quantity <= $product->getQuantity()) {
-            $product->setQuantity($product->getQuantity() - $quantity);
+            // Create a new CartItem
+            $cart = $product->getCart();
+            $cart = $product->getCart() ?? new Cart();
+            $cart->setProduct($product);
+            $cart->setQuantity($quantity);
+            $entityManager->persist($cart);
+            $entityManager->flush();
         }
-        dd($product);
-    }
 
+        dd($cart);
+    }
 
 }
