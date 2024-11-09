@@ -1,0 +1,44 @@
+# Ignore node_modules
+node_modules/
+/src/node_modules/
+
+
+# Ignore version control files
+.git/
+.gitignore
+
+
+# Ignore IDE and editor files
+*.swp
+*.swo
+.vscode/
+.idea/
+
+/src/*.swp
+/src/*.swo
+/src/.vscode/
+/src/.idea/
+
+# Ignore Docker-related files
+dockerfile
+docker-compose.yml
+.dockerignore
+
+/src/dockerfile
+/src/docker-compose.yml
+/src/.dockerignore
+
+
+# Ignore Symfony cache and logs, as these are generated inside the container
+var/cache
+/src/var/log
+
+
+# Ignore environment configuration files if they are generated dynamically
+/src/.env.local
+/src/.env.*.local
+
+# Ignore build and temporary files
+/src/.DS_Store
+/src/Thumbs.db
+*.log

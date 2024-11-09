@@ -203,3 +203,8 @@ h1 {
     background: #28a745a1;
     color: #fff;
 }
+
+.alert-error {
+    background: #b0413ee5;
+    color: #fff;
+}

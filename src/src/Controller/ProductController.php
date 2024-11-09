@@ -79,9 +79,11 @@ class ProductController extends AbstractController
             $cart->setQuantity($quantity);
             $entityManager->persist($cart);
             $entityManager->flush();
+            $this->addFlash('success', 'Panier mis à jour avec succès.');
+            return $this->redirectToRoute('products');
         }
 
-        $this->addFlash('success', 'Panier mis à jour avec succès.');
+        $this->addFlash('error', 'Stock insuffisant.');
         return $this->redirectToRoute('products');
     }
 

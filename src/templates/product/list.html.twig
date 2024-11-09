@@ -28,6 +28,13 @@
             </div>
         {% endfor %}
     </div>
+    <div>
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
     {# this is a list of Products #}
     <div class="product-container">
         {% for product in products %}
