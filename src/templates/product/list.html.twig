@@ -54,7 +54,7 @@
 
                 <form style="display: flex; justify-content: space-between;" 
                     action="{{ path('add_to_cart', {id: product.id }) }}" method="POST">
-                    <input class="product-quantity" type="number" name="quantity" value="1"/>
+                    <input class="product-quantity" min="0" max="{{product.quantity}}" type="number" name="quantity" value="1"/>
                     <button class="add-to-cart">
                         Ajouter au panier
                     </button>

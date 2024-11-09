@@ -1,25 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ product.title }} - Product Details{% endblock %}
+{% block title %}
+	{{ product.title }}
+	- Product Details
+{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('styles/products.css') }}">
+	<link rel="stylesheet" href="{{ asset('styles/products.css') }}">
 {% endblock %}
 
 {% block body %}
-<div>
-<a href="{{ path('products')}}" class="see-more">Revenir aux produits</a>
+	<div class="product-container" style="max-width: 660px; margin: auto; display: flex; flex-direction: column; margin-top: 30Px;">
 
-</div>
-<div class="product-container">
-    <div class="product-image">
-        <img src="{{asset('images/products/thumbnail.webp')}}" alt="{{ product.title }}" />
-    </div>
-    <div class="product-details">
-        <h1 class="product-title">{{ product.title }}</h1>
-        <p class="product-price">{{ product.price }}</p>
-        <p class="product-description">{{ product.description }}</p>
-        <a href="" class="see-more">Ajouter au pannier</a>
-    </div>
-</div>
+		<div class="product" style="display: flex;
+								  width: 100%;
+								  gap: 20px;">
+			<div>
+				<img src="{{ product.getImageUrl(250) }}" alt="{{ product.title }}"/>
+			</div>
+			<div>
+				<h3>
+					<a href="{{ path('product_show', {'slug': product.slug}) }}">
+						{{ product.title }}</a>
+				</h3>
+				<p class="price">{{ product.getPriceString }}</p>
+				<p class="quantity">{{product.quantity}}
+					articles restants.</p>
+				<p class="description">{{product.description}}</p>
+
+				<form style="display: flex; justify-content: space-between; margin-bottom: 12px" action="{{ path('add_to_cart', {id: product.id }) }}" method="POST">
+					<input class="product-quantity" min="0" max="{{product.quantity}}" type="number" name="quantity" value="1"/>
+					<button class="add-to-cart">
+						Ajouter au panier
+					</button>
+				</form>
+				<div>
+					<a href="{{ path('products')}}" class="see-more">Continuer les achats</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -72,7 +72,7 @@ class ProductController extends AbstractController
     public function addToCart(Product $product, Request $request, EntityManagerInterface $entityManager): Response
     {
         $quantity = $request->request->get('quantity', 1);
-        if ($quantity <= $product->getQuantity()) {
+        if ($quantity <= $product->getQuantity() && $quantity > 0 ) {
             // Create a new CartItem
             $cart = $product->getCart() ?? new Cart();
             $cart->setProduct($product);
@@ -83,7 +83,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('products');
         }
 
-        $this->addFlash('error', 'Stock insuffisant.');
+        $this->addFlash('error', 'Quantité non valide!');
         return $this->redirectToRoute('products');
     }
 
