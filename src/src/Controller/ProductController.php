@@ -58,7 +58,7 @@ class ProductController extends AbstractController
         ); // render return a Response
     }
 
-    #[Route('/product/{id<\d+>}', name: 'product_show')]
+    #[Route('/product/{slug}', name: 'product_show')]
     public function show(Product $product)
     {
         return $this->render(
