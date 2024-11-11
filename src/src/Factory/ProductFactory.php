@@ -55,8 +55,8 @@ final class ProductFactory extends PersistentProxyObjectFactory
             'price' => self::faker()->numberBetween(20, 200),
             'quantity' => self::faker()->numberBetween(1, 20),
             'slug' => self::faker()->text(100),
-            'title' => self::faker()->words(5, true),
-            'description' => self::faker()->paragraph(),
+            'title' => self::faker()->words(4, true),
+            'description' => self::faker()->text(200),
         ];
     }
 
