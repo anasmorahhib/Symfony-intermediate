@@ -9,7 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 
 class ProductController extends AbstractController
 {
@@ -45,14 +46,21 @@ class ProductController extends AbstractController
     }
 
     #[Route(path: '/product/list/{city?}', name: 'products')]
-    public function products(ProductRepository $productRepository, CartRepository $cartRepository, string $city = null)
+    public function products(ProductRepository $productRepository, CartRepository $cartRepository, Request $request, string $city = null)
     {
-        $products = $productRepository->findAllOrderedByPrice($city);
+        $queryBuilder = $productRepository->findAllOrderedByCityQueryBuilder($city);
         $totalQuantity = $cartRepository->getTotalQuantity();
+
+        $adapter = new QueryAdapter($queryBuilder);
+        $productPagerfanta = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            $adapter,
+            $request->query->get('page', 1),
+            8
+        );
         return $this->render(
             'product/list.html.twig',
             [
-                'products' => $products,
+                'products' => $productPagerfanta,
                 'totalQuantity' => $totalQuantity,
             ]
         ); // render return a Response

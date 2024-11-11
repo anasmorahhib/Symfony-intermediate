@@ -1,67 +1,76 @@
 {# templates/products/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Marketplace{% endblock %}
+{% block title %}Marketplace
+{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/products.css') }}">
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/products.css') }}">
+	<link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
+
 {% endblock %}
 
 {% block body %}
-<div {{ stimulus_controller('cart') }}/>
-    <div class="header">
-        <h1>Marketplace</h1>
-            {# Cart #}
-            <div class="cart">
-                <a href="{{path('show_cart')}}">
-                    <span class="cart-icon">🛒</span>
-                    <span class="item-count" data-cart-target="cartCount">{{totalQuantity}}</span> 
-                </a>
-            </div>
-    </div>
-    {# Alert #}
-     <div>
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-    <div>
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-error">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-    {# this is a list of Products #}
-    <div class="product-container">
-        {% for product in products %}
-            <div class="product">
-                <div class="product-user">
-                    <div class="avatar">U</div>
-                    <div class="info">
-                        <h3>Yassin AZ...</h3>
-                        <p>{{ product.getAddedDate() | ago}} à {{ product.city}}</p>
-                     </div>
-                </div>
-                <img src="{{ product.getImageUrl(250) }}" alt="{{ product.title }}" />
-                <h3><a href="{{ path('product_show', {'slug': product.slug}) }}"> {{ product.title }}</a></h3>
-                <p class="price">{{ product.getPriceString }}</p>
-                <p class="quantity">{{product.quantity}} articles restants.</p>
-                <p class="description">{{product.description}}</p>
+	<div {{ stimulus_controller('cart') }}/>
+	<div class="header">
+		<h1>Marketplace</h1>
+		{# Cart #}
+		<div class="cart">
+			<a href="{{path('show_cart')}}">
+				<span class="cart-icon">🛒</span>
+				<span class="item-count" data-cart-target="cartCount">{{totalQuantity}}</span>
+			</a>
+		</div>
+	</div>
+	{# Alert #}
+	<div>
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+	</div>
+	<div>
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-error">
+				{{ message }}
+			</div>
+		{% endfor %}
+	</div>
+	{# this is a list of Products #}
+	<div class="product-container">
+		{% for product in products %}
+			<div class="product">
+				<div class="product-user">
+					<div class="avatar">U</div>
+					<div class="info">
+						<h3>Yassin AZ...</h3>
+						<p>{{ product.getAddedDate() | ago}}
+							à
+							{{ product.city}}</p>
+					</div>
+				</div>
+				<img src="{{ product.getImageUrl(250) }}" alt="{{ product.title }}"/>
+				<h3>
+					<a href="{{ path('product_show', {'slug': product.slug}) }}">
+						{{ product.title }}</a>
+				</h3>
+				<p class="price">{{ product.getPriceString }}</p>
+				<p class="quantity">{{product.quantity}}
+					articles restants.</p>
+				<p class="description">{{product.description}}</p>
 
-                <form style="display: flex; justify-content: space-between;" 
-                    action="{{ path('add_to_cart', {id: product.id }) }}" method="POST">
-                    <input class="product-quantity" min="0" max="{{product.quantity}}" type="number" name="quantity" value="1"/>
-                    <button class="add-to-cart">
-                        Ajouter au panier
-                    </button>
-                </form>
+				<form style="display: flex; justify-content: space-between;" action="{{ path('add_to_cart', {id: product.id }) }}" method="POST">
+					<input class="product-quantity" min="0" max="{{product.quantity}}" type="number" name="quantity" value="1"/>
+					<button class="add-to-cart">
+						Ajouter au panier
+					</button>
+				</form>
 
-            </div>
-        {% endfor %}
-    </div>
-</div>
-{% endblock %}
+			</div>
+		{% endfor %}
+	</div>
+	{{ pagerfanta(products) }}
+
+</div>{% endblock %}

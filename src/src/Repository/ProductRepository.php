@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -24,7 +25,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * @return Product[] Returns an array of Product objects
      */
-    public function findAllOrderedByPrice(string $city = null): array
+    public function findAllOrderedByCityQueryBuilder(string $city = null): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('product')
             ->orderBy('product.price', 'ASC');
@@ -34,7 +35,7 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('city', $city);
         }
 
-        return $queryBuilder->setMaxResults(10)->getQuery()->getResult();
+        return $queryBuilder;
     }
 
     //    /**

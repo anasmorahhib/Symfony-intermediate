@@ -1,0 +1,48 @@
+/* Pagination container */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 20px 0;
+}
+
+/* Pagination item (links or spans) */
+.pagination__item {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #000; /* Default color */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for pagination links */
+.pagination__item:hover {
+    background-color: #ff8c00; /* Hover color */
+}
+
+/* Disabled page (Previous or Next) */
+.pagination__item--disabled {
+    background-color: #e6e6e6; /* Disabled background */
+    color: #b0b0b0; /* Disabled text color */
+    cursor: not-allowed;
+}
+
+/* Disabled page (Previous or Next) */
+.pagination__item--disabled:hover {
+    background-color: #e6e6e6; /* Disabled background */
+    color: #b0b0b0; /* Disabled text color */
+    cursor: not-allowed;
+}
+
+/* Current page (active page) */
+.pagination__item--current-page {
+    background-color: #ff8c00; /* Active page color */
+    color: white;
+    font-weight: bold; /* Optional: Make active page bold */
+}
+
+
